@@ -1,0 +1,16 @@
+{
+  "name": "sabay",
+  "version": "1.0.0",
+  "bin": {
+    "sabay": "./index.mjs"
+  },
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "cli-table3": "^0.6.5",
+    "commander": "^11.0.0",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  }
+}
