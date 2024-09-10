@@ -49,7 +49,3 @@ def get_auth_token(username: str, password: str) -> str:
     finally:
         driver.quit()
 
-# Example usage
-if __name__ == "__main__":
-    token = get_auth_token("rithythul", "8q$:Mer8?.z#?&i")
-    #print("Token:", token)
