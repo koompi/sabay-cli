@@ -67,6 +67,7 @@ make
 
 ```bash
 cd server
+make
 source venv/bin/activate
 python main.py
 ```

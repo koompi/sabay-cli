@@ -18,6 +18,7 @@ DB_URI = os.getenv('DB_URI')
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 
+
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -96,7 +97,7 @@ def list_services():
     data = request.json
     stack_id = data.get('stackId')
     subscription_id = data.get('subscriptionId')
-    
+
     if not stack_id or not subscription_id:
         return jsonify({"error": "Missing stackId or subscriptionId"}), 400
 
