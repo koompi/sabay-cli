@@ -11,7 +11,7 @@ export async function listStacks() {
 
     const table = new Table({
         head: ['ID', 'Stack Name', 'Status', 'Number of Services', 'Subscription ID'],
-        colWidths: [30, 25, 15, 25, 30]
+        colWidths: [30, 25, 17, 25, 30]
     });
 
     stacks.forEach(stack => {

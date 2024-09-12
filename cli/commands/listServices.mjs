@@ -2,6 +2,11 @@ import fetch from 'node-fetch';
 import Table from 'cli-table3';
 import { listStacks } from './listStacks.mjs';
 
+// Function to colorize text
+function colorize(text, colorCode) {
+    return `\x1b[${colorCode}m${text}\x1b[0m`;
+}
+
 export async function listServices(stackIdentifier) {
     try {
         const stacks = await listStacks();
@@ -36,7 +41,7 @@ export async function listServices(stackIdentifier) {
 
         const summaryTable = new Table({
             head: ['Service Name', 'Container Image', 'Status', 'Domain Name'],
-            colWidths: [25, 40, 15, 25]
+            colWidths: [23, 70, 10, 25]
         });
 
         services.forEach(service => {
@@ -65,7 +70,7 @@ export async function listServices(stackIdentifier) {
                 }
             }
 
-            console.log(`\nService Details for ${service.serviceName}:`);
+            console.log(`\nService Details for ${colorize(service.serviceName, 32)}:`);
             console.log(detailedTable.toString());
         });
 
