@@ -73,6 +73,8 @@ export async function listServices(stackIdentifier) {
             console.log(`\nService Details for ${colorize(service.serviceName, 32)}:`);
             console.log(detailedTable.toString());
         });
+        return services;
+
 
     } catch (error) {
         console.error('Error listing services:', error);

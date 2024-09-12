@@ -6,7 +6,22 @@ import { updateStack } from './commands/updateStack.mjs';
 import { listStacks } from './commands/listStacks.mjs';
 import { listServices } from './commands/listServices.mjs';
 import { parseArgs } from './utils/parseArgs.mjs';
+import { logService } from './commands/logService.mjs';
 
+async function listServicesAndFetchLogs(stackIdentifier) {
+    try {
+        const services = await listServices(stackIdentifier);
+        if (services.length > 0) {
+            const { id, subscriptionId } = services[0]; // Example: getting the first service
+            const logs = await logService("66e2c148f711e6a388eefa32", "66bc781bbf70dc939b5894a8");
+            console.log('Service Logs:', logs);
+        } else {
+            console.log(`No services found for stack ${stackIdentifier}`);
+        }
+    } catch (error) {
+        console.error('Error listing services and fetching logs:', error);
+    }
+}
 async function main() {
     const args = process.argv.slice(2);
     const { command, options, parameters } = parseArgs(args);
@@ -69,6 +84,19 @@ async function main() {
             } else {
                 console.error('Usage: sabay listservice <stackIdentifier>');
             }
+            case '--logstack':
+                if (parameters.length === 1) {
+                    console.log(`Fetching logs for stack: ${parameters[0]}`);
+                    try {
+                        const services = await listServices(parameters[0]);
+                        const { id, subscriptionId } = services[0]; // Example: getting the first service
+                        await listServicesAndFetchLogs(id, subscriptionId); // Pass correct parameters
+                    } catch (err) {
+                        console.error('Error fetching logs:', err);
+                    }
+                } else {
+                    console.error('Usage: sabay --logstack <stackIdentifier>');
+                }
             break;
         default:
             console.log(`
