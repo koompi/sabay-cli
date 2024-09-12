@@ -8,6 +8,7 @@ from utils.getAuth import get_auth_token
 from utils.updateStack import update_stack
 from utils.listServices import get_services
 from utils.listStack import list_stacks
+from utils.logService import log_service
 import requests
 
 # Load environment variables from .env file
@@ -108,6 +109,21 @@ def list_services():
     except requests.HTTPError as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/logService', methods=['POST'])
+def log_services_route():
+    data = request.json
+    service_id = data.get('serviceId')
+    subscription_id = data.get('subscriptionId')
+
+    if not service_id or not subscription_id:
+        return jsonify({"error": "Missing serviceId or subscriptionId"}), 400
+
+    try:
+        token = fetch_auth_token()
+        logs = log_service(service_id, subscription_id, token)
+        return jsonify(logs)
+    except requests.HTTPError as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/testMongo', methods=['GET'])
