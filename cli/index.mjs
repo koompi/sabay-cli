@@ -19,11 +19,11 @@ const colors = {
     blue: "\x1b[34m",
     magenta: "\x1b[35m",
     cyan: "\x1b[36m",
-  };
+};
 
-  function colorize(text, color) {
+function colorize(text, color) {
     return `${color}${text}${colors.reset}`;
-  }
+}
 
 
 
@@ -46,10 +46,10 @@ async function main() {
         case '--updatestack':
         case 'updatestack':
             if (parameters.length === 1) {
-                console.log(`Updating stack for service: ${parameters[0]}`);
+                console.log(`Updating stack for: ${parameters[0]}`);
                 try {
                     await updateStack(parameters[0]);
-                    console.log(`Stack updated successfully for service: ${parameters[0]}`);
+                    // console.log(`Stack updated successfully for: ${parameters[0]}`);
                 } catch (err) {
                     console.error('Error updating stack:', err);
                 }
@@ -89,19 +89,18 @@ async function main() {
             } else {
                 console.error('Usage: sabay listservice <stackIdentifier>');
             }
-            case '--logstack':
-    case 'logstack':
-      if (parameters.length === 1) {
-        console.log(colorize(`Fetching logs for stack: ${parameters[0]}`, colors.green));
-        try {
-          await listServicesAndFetchLogs(parameters[0]);
-        } catch (err) {
-          console.error(colorize('Error fetching logs:', colors.red), err);
-        }
-      } else {
-        console.error(colorize('Usage: sabay --logstack <stackIdentifier>', colors.red));
-      }
-      break;
+        case '--logstack':
+        case 'logstack':
+            if (parameters.length === 1) {
+                console.log(colorize(`Fetching logs for stack: ${parameters[0]}`, colors.green));
+                try {
+                    await listServicesAndFetchLogs(parameters[0]);
+                } catch (err) {
+                    console.error(colorize('Error fetching logs:', colors.red), err);
+                }
+            } else {
+                console.error(colorize('Usage: sabay --logstack <stackIdentifier>', colors.red));
+            }
             break;
         default:
             console.log(colorize(`
