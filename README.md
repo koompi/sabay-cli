@@ -99,6 +99,9 @@ Usage:
 
   sabay --listservice <stackIdentifier>
     List services for a stack identified by name or ID.
+    
+  sabay --logstack <stackIdentifier>
+    Fetch and display logs for all services in the specified stack.
 
 ```
 
