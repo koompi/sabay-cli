@@ -130,7 +130,13 @@ The Flask API server provides the following endpoints:
     Example:
 
     ```bash
-    curl -X POST -d '{"stackId": "123"}' http://localhost:8084/api/listservices
+    curl -X POST -H "Content-Type: application/json" -d '{"serviceId": "123", "subscriptionId": "123"}' http://localhost:8084/api/listservices
+    ```
+* `/api/logService` (POST): Retrieves the service log by `ServiceId`.
+    Example:
+
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d '{"serviceId": "123", "subscriptionId": "123"}' http://localhost:8084/api/logService
     ```
 
 ### Folder Structure
