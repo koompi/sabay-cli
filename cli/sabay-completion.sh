@@ -7,7 +7,7 @@ _sabay() {
     sabay_path=$(which sabay)
 
     # Define options
-    opts="--token --updatestack --liststack --listservice"
+    opts="--token --updatestack --liststack --listservice --logstack"
 
     # Current and previous word
     cur="${COMP_WORDS[COMP_CWORD]}"
@@ -35,7 +35,7 @@ _sabay() {
     esac
 
     # Fallback to completing commands if not handled by previous cases
-    COMPREPLY=($(compgen -W "token updatestack liststack listservice" -- ${cur}))
+    COMPREPLY=($(compgen -W "token updatestack liststack listservice logstack" -- ${cur}))
 }
 
 complete -F _sabay sabay

@@ -13,8 +13,8 @@ export async function listServices(stackIdentifier) {
         const stack = stacks.find(stack => stack.stackName === stackIdentifier || stack.id === stackIdentifier);
 
         if (!stack) {
-            console.error(`Stack with identifier ${stackIdentifier} not found`);
-            return;
+            console.error(colorize(`Stack with identifier ${stackIdentifier} not found`, 31));
+            return []; // Return an empty array instead of undefined
         }
 
         const { id: stackId, subscriptionId } = stack;
@@ -35,9 +35,9 @@ export async function listServices(stackIdentifier) {
         const services = data.data.container_listService.services;
 
         if (services.length === 0) {
-            console.log(`No services found for stack ${stackIdentifier}`);
-            return;
-        }
+            console.log(colorize(`No services found for stack ${stackIdentifier}`, 33));
+            return []; // Return an empty array
+          }
 
         const summaryTable = new Table({
             head: ['Service Name', 'Container Image', 'Status', 'Domain Name'],
@@ -74,9 +74,9 @@ export async function listServices(stackIdentifier) {
             console.log(detailedTable.toString());
         });
         return services;
-
-
     } catch (error) {
-        console.error('Error listing services:', error);
+      console.error(colorize('Error listing services:', 31), error);
+      return []; // Return an empty array in case of error
     }
+  
 }
