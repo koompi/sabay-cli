@@ -20,12 +20,12 @@ const colors = {
     magenta: "\x1b[35m",
     cyan: "\x1b[36m",
   };
-  
+
   function colorize(text, color) {
     return `${color}${text}${colors.reset}`;
   }
-  
-  
+
+
 
 async function main() {
     const args = process.argv.slice(2);
@@ -108,19 +108,19 @@ async function main() {
           Usage:
             sabay token
               Fetch a new authentication token.
-          
+
             sabay updatestack <serviceName>
               Update the stack for the specified service.
-          
+
             sabay liststack
               List all available stacks.
-          
+
             sabay listservice <stackIdentifier>
               List services for a stack identified by name or ID.
-          
-            sabay --logstack <stackIdentifier>
+
+            sabay logstack <stackIdentifier>
               Fetch and display logs for all services in the specified stack.
-          
+
           For more information, visit our documentation or help page.
                 `, colors.cyan));
             process.exit(1);
