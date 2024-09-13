@@ -7,21 +7,26 @@ import { listStacks } from './commands/listStacks.mjs';
 import { listServices } from './commands/listServices.mjs';
 import { parseArgs } from './utils/parseArgs.mjs';
 import { logService } from './commands/logService.mjs';
+import { listServicesAndFetchLogs } from './commands/logStack.mjs';
 
-async function listServicesAndFetchLogs(stackIdentifier) {
-    try {
-        const services = await listServices(stackIdentifier);
-        if (services.length > 0) {
-            const { id, subscriptionId } = services[0]; // Example: getting the first service
-            const logs = await logService("66e2c148f711e6a388eefa32", "66bc781bbf70dc939b5894a8");
-            console.log('Service Logs:', logs);
-        } else {
-            console.log(`No services found for stack ${stackIdentifier}`);
-        }
-    } catch (error) {
-        console.error('Error listing services and fetching logs:', error);
-    }
-}
+// ANSI color codes
+const colors = {
+    reset: "\x1b[0m",
+    bright: "\x1b[1m",
+    red: "\x1b[31m",
+    green: "\x1b[32m",
+    yellow: "\x1b[33m",
+    blue: "\x1b[34m",
+    magenta: "\x1b[35m",
+    cyan: "\x1b[36m",
+  };
+  
+  function colorize(text, color) {
+    return `${color}${text}${colors.reset}`;
+  }
+  
+  
+
 async function main() {
     const args = process.argv.slice(2);
     const { command, options, parameters } = parseArgs(args);
@@ -85,36 +90,39 @@ async function main() {
                 console.error('Usage: sabay listservice <stackIdentifier>');
             }
             case '--logstack':
-                if (parameters.length === 1) {
-                    console.log(`Fetching logs for stack: ${parameters[0]}`);
-                    try {
-                        const services = await listServices(parameters[0]);
-                        const { id, subscriptionId } = services[0]; // Example: getting the first service
-                        await listServicesAndFetchLogs(id, subscriptionId); // Pass correct parameters
-                    } catch (err) {
-                        console.error('Error fetching logs:', err);
-                    }
-                } else {
-                    console.error('Usage: sabay --logstack <stackIdentifier>');
-                }
+    case 'logstack':
+      if (parameters.length === 1) {
+        console.log(colorize(`Fetching logs for stack: ${parameters[0]}`, colors.green));
+        try {
+          await listServicesAndFetchLogs(parameters[0]);
+        } catch (err) {
+          console.error(colorize('Error fetching logs:', colors.red), err);
+        }
+      } else {
+        console.error(colorize('Usage: sabay --logstack <stackIdentifier>', colors.red));
+      }
+      break;
             break;
         default:
-            console.log(`
-Usage:
-  sabay token
-    Fetch a new authentication token.
-
-  sabay updatestack <serviceName>
-    Update the stack for the specified service.
-
-  sabay liststack
-    List all available stacks.
-
-  sabay listservice <stackIdentifier>
-    List services for a stack identified by name or ID.
-
-For more information, visit our documentation or help page.
-            `);
+            console.log(colorize(`
+          Usage:
+            sabay token
+              Fetch a new authentication token.
+          
+            sabay updatestack <serviceName>
+              Update the stack for the specified service.
+          
+            sabay liststack
+              List all available stacks.
+          
+            sabay listservice <stackIdentifier>
+              List services for a stack identified by name or ID.
+          
+            sabay --logstack <stackIdentifier>
+              Fetch and display logs for all services in the specified stack.
+          
+          For more information, visit our documentation or help page.
+                `, colors.cyan));
             process.exit(1);
     }
 }

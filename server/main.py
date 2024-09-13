@@ -16,9 +16,8 @@ load_dotenv()
 
 # Retrieve credentials from environment variables
 DB_URI = os.getenv('DB_URI')
-USERNAME = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
-
+USERNAME = os.getenv('ACCOUNT_USERNAME')
+PASSWORD = os.getenv('ACCOUNT_PASSWORD')
 
 # Initialize Flask app
 app = Flask(__name__)

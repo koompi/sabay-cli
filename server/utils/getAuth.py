@@ -25,7 +25,7 @@ def get_auth_token(username: str, password: str) -> str:
         driver.get("https://sso.sabay.com/realms/sabay/protocol/openid-connect/auth?client_id=mysabay_user&redirect_uri=https%3A%2F%2Fmysabay.com%2F&state=f758be16-64bb-4045-8a7b-d3119f58d9d5&response_mode=fragment&response_type=code&scope=openid&nonce=f8dcbfa3-f374-4702-880d-656b30722fe4&code_challenge=Jc1_C0Th4W6phUuUB_fbRatjC5oXrs72x6JPNoMqNKs&code_challenge_method=S256")
 
         # Wait for the page to load
-        time.sleep(5)  # Adjust as needed
+        time.sleep(2)  # Adjust as needed
 
         # Fill in the login form
         username_field = driver.find_element(By.NAME, 'username')
