@@ -75,7 +75,7 @@ def update_stack_route():
     try:
         token = fetch_auth_token()
         if token:
-            return update_stack(token)
+            return update_stack(stackId=request.json['stackId'], token=token)
         else:
             return jsonify({'error': 'Failed to obtain new token'}), 500
     except Exception as e:

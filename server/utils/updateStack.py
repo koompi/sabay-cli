@@ -1,12 +1,12 @@
 import requests
 
-def update_stack(service_name, stack_id, token):
+def update_stack(stackId, token):
     graphql_endpoint = 'https://gateway.sabay.com/graphql'
     graphql_query = {
         "operationName": "updateStack",
         "variables": {
             "input": {
-                "stackId": stack_id,
+                "stackId": stackId,
                 "services": [],
                 "pullImage": True
             },
