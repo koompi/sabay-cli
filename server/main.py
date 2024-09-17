@@ -19,6 +19,9 @@ DB_URI = os.getenv('DB_URI')
 USERNAME = os.getenv('ACCOUNT_USERNAME')
 PASSWORD = os.getenv('ACCOUNT_PASSWORD')
 
+print(USERNAME)
+print(PASSWORD)
+
 # Initialize Flask app
 app = Flask(__name__)
 
